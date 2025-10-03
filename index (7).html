@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshClean Laundry Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c0392b;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 150px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Service Overview */
+        .service-overview {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .stat-text {
+            font-size: 18px;
+        }
+
+        /* Booking Section */
+        .booking {
+            background-color: white;
+        }
+
+        .booking-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .services-list {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .service-item {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .service-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .service-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cart-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .cart-summary {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .cart-items {
+            min-height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: right;
+        }
+
+        .booking-form {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .confirmation-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* Quality Description */
+        .quality {
+            background-color: var(--light);
+        }
+
+        .quality-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .quality-item {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .quality-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .quality-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form .form-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                flex-direction: column;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .booking-container {
+                flex-direction: column;
+            }
+
+            .stats-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-tshirt"></i>
+                FreshClean
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <div class="user-info">
+                <i class="fas fa-user"></i>
+                <span>John Doe</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Professional Laundry Services At Your Doorstep</h1>
+                <p>We provide high-quality laundry services with quick turnaround times and affordable prices. Let us handle your laundry while you focus on what matters most.</p>
+                <a href="#booking" class="btn">Book a Service Today</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1582735689256-79f0c14ecea0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Laundry Service">
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Overview -->
+    <section class="service-overview">
+        <div class="container">
+            <h2>Why Choose FreshClean?</h2>
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-text">Laundry Services</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">240+</div>
+                    <div class="stat-text">Happy Customers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2+</div>
+                    <div class="stat-text">Years of Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Services -->
+    <section id="booking" class="booking">
+        <div class="container">
+            <h2>Book Our Services</h2>
+            <div class="booking-container">
+                <!-- Left Div - Services List -->
+                <div class="services-list">
+                    <h3>Our Services</h3>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <h3>Wash & Fold</h3>
+                            <p>Professional washing and folding of your clothes</p>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-price">$15.00</div>
+                            <div class="service-actions">
+                                <button class="btn" onclick="addToCart('Wash & Fold', 15)">Add Items</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <h3>Dry Cleaning</h3>
+                            <p>Expert dry cleaning for delicate fabrics</p>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-price">$25.00</div>
+                            <div class="service-actions">
+                                <button class="btn" onclick="addToCart('Dry Cleaning', 25)">Add Items</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <h3>Ironing Service</h3>
+                            <p>Professional ironing for crisp, clean clothes</p>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-price">$12.00</div>
+                            <div class="service-actions">
+                                <button class="btn" onclick="addToCart('Ironing Service', 12)">Add Items</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <h3>Stain Removal</h3>
+                            <p>Specialized treatment for stubborn stains</p>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-price">$18.00</div>
+                            <div class="service-actions">
+                                <button class="btn" onclick="addToCart('Stain Removal', 18)">Add Items</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Add items to the cart to proceed with booking</strong></p>
+                </div>
+
+                <!-- Right Div - Cart and Booking Form -->
+                <div class="cart-container">
+                    <div class="cart-summary">
+                        <h3>Your Cart</h3>
+                        <div class="cart-items" id="cartItems">
+                            <p>No items added yet</p>
+                        </div>
+                        <div class="cart-total">
+                            Total: $<span id="totalAmount">0</span>
+                        </div>
+                    </div>
+
+                    <div class="booking-form">
+                        <h3>Book Now</h3>
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number">
+                        </div>
+                        <button class="btn btn-accent" onclick="bookService()">Book Now</button>
+                        <div class="confirmation-message" id="confirmationMessage">
+                            Thank you for booking our service! We will get back to you soon!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quality Description -->
+    <section class="quality">
+        <div class="container">
+            <h2>Why We Stand Out</h2>
+            <div class="quality-container">
+                <div class="quality-item">
+                    <div class="quality-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Premium Services</h3>
+                    <p>We use high-quality detergents and equipment to ensure your clothes receive the best care possible.</p>
+                </div>
+                <div class="quality-item">
+                    <div class="quality-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Quick Support</h3>
+                    <p>Our customer support team is available 24/7 to address any concerns or special requests.</p>
+                </div>
+                <div class="quality-item">
+                    <div class="quality-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Timely Delivery</h3>
+                    <p>We guarantee on-time delivery of your cleaned clothes, with real-time tracking available.</p>
+                </div>
+                <div class="quality-item">
+                    <div class="quality-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Affordable Prices</h3>
+                    <p>Competitive pricing without compromising on quality, with regular discounts for loyal customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Stay updated with our latest offers and services</p>
+            <div class="newsletter-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Full Name">
+                    <input type="email" placeholder="Your Email">
+                    <button class="btn">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i> FreshClean
+                    </div>
+                    <p>Professional laundry services delivered to your doorstep with quality and care.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Important Links</h4>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Laundry St, Clean City</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@freshclean.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FreshClean Laundry Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        let totalAmount = 0;
+
+        function addToCart(serviceName, price) {
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.name === serviceName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: serviceName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+        }
+
+        function removeFromCart(serviceName) {
+            cart = cart.filter(item => item.name !== serviceName);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const totalAmountElement = document.getElementById('totalAmount');
+            
+            // Reset cart display
+            cartItems.innerHTML = '';
+            totalAmount = 0;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>No items added yet</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    totalAmount += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong> 
+                            <span>(${item.quantity} x $${item.price})</span>
+                        </div>
+                        <div>
+                            <span>$${itemTotal.toFixed(2)}</span>
+                            <button class="btn" style="margin-left: 10px; padding: 5px 10px; font-size: 12px;" onclick="removeFromCart('${item.name}')">Remove</button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            totalAmountElement.textContent = totalAmount.toFixed(2);
+        }
+
+        function bookService() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            // Basic validation
+            if (!fullName || !email || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                alert('Please add at least one service to your cart');
+                return;
+            }
+            
+            // In a real application, you would send this data to a server
+            // For this demo, we'll just show the confirmation message
+            
+            // Show confirmation message
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            confirmationMessage.style.display = 'block';
+            
+            // Reset form and cart
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            cart = [];
+            updateCart();
+            
+            // Scroll to confirmation message
+            confirmationMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Simulate email sending
+            console.log(`Sending confirmation email to ${email} for booking by ${fullName}`);
+        }
+    </script>
+</body>
+</html>
