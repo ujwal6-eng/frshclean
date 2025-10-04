@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreshClean Laundry Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         /* Reset and Base Styles */
         * {
@@ -76,11 +75,6 @@
 
         .btn-accent:hover {
             background-color: #c0392b;
-        }
-
-        .btn-small {
-            padding: 8px 16px;
-            font-size: 14px;
         }
 
         /* Navbar Styles */
@@ -321,27 +315,6 @@
             display: none;
         }
 
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 2s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* Quality Description */
         .quality {
             background-color: var(--light);
@@ -570,8 +543,7 @@
                         <div class="service-details">
                             <div class="service-price">$15.00</div>
                             <div class="service-actions">
-                                <button id="washFoldAdd" class="btn btn-small" onclick="addToCart('Wash & Fold', 15, 'washFoldAdd', 'washFoldRemove')">Add Items</button>
-                                <button id="washFoldRemove" class="btn btn-small" style="display: none;" onclick="removeFromCart('Wash & Fold', 'washFoldAdd', 'washFoldRemove')">Remove Now</button>
+                                <button class="btn" onclick="addToCart('Wash & Fold', 15)">Add Items</button>
                             </div>
                         </div>
                     </div>
@@ -583,8 +555,7 @@
                         <div class="service-details">
                             <div class="service-price">$25.00</div>
                             <div class="service-actions">
-                                <button id="dryCleaningAdd" class="btn btn-small" onclick="addToCart('Dry Cleaning', 25, 'dryCleaningAdd', 'dryCleaningRemove')">Add Items</button>
-                                <button id="dryCleaningRemove" class="btn btn-small" style="display: none;" onclick="removeFromCart('Dry Cleaning', 'dryCleaningAdd', 'dryCleaningRemove')">Remove Now</button>
+                                <button class="btn" onclick="addToCart('Dry Cleaning', 25)">Add Items</button>
                             </div>
                         </div>
                     </div>
@@ -596,8 +567,7 @@
                         <div class="service-details">
                             <div class="service-price">$12.00</div>
                             <div class="service-actions">
-                                <button id="ironingAdd" class="btn btn-small" onclick="addToCart('Ironing Service', 12, 'ironingAdd', 'ironingRemove')">Add Items</button>
-                                <button id="ironingRemove" class="btn btn-small" style="display: none;" onclick="removeFromCart('Ironing Service', 'ironingAdd', 'ironingRemove')">Remove Now</button>
+                                <button class="btn" onclick="addToCart('Ironing Service', 12)">Add Items</button>
                             </div>
                         </div>
                     </div>
@@ -609,8 +579,7 @@
                         <div class="service-details">
                             <div class="service-price">$18.00</div>
                             <div class="service-actions">
-                                <button id="stainRemovalAdd" class="btn btn-small" onclick="addToCart('Stain Removal', 18, 'stainRemovalAdd', 'stainRemovalRemove')">Add Items</button>
-                                <button id="stainRemovalRemove" class="btn btn-small" style="display: none;" onclick="removeFromCart('Stain Removal', 'stainRemovalAdd', 'stainRemovalRemove')">Remove Now</button>
+                                <button class="btn" onclick="addToCart('Stain Removal', 18)">Add Items</button>
                             </div>
                         </div>
                     </div>
@@ -644,10 +613,6 @@
                             <input type="tel" id="phone" placeholder="Enter your phone number">
                         </div>
                         <button class="btn btn-accent" onclick="bookService()">Book Now</button>
-                        <div class="loading" id="loadingIndicator">
-                            <div class="loading-spinner"></div>
-                            <p>Sending confirmation email...</p>
-                        </div>
                         <div class="confirmation-message" id="confirmationMessage">
                             Thank you for booking our service! We will get back to you soon!
                         </div>
@@ -701,9 +666,9 @@
             <p>Stay updated with our latest offers and services</p>
             <div class="newsletter-form">
                 <div class="form-group">
-                    <input type="text" id="newsletterName" placeholder="Your Full Name">
-                    <input type="email" id="newsletterEmail" placeholder="Your Email">
-                    <button class="btn" onclick="subscribeNewsletter()">Subscribe</button>
+                    <input type="text" placeholder="Your Full Name">
+                    <input type="email" placeholder="Your Email">
+                    <button class="btn">Subscribe</button>
                 </div>
             </div>
         </div>
@@ -759,20 +724,11 @@
     </footer>
 
     <script>
-        // Initialize EmailJS with your credentials
-        (function() {
-            emailjs.init("-Z6sEPrv-6RKrscsV");
-        })();
-
         // Cart functionality
         let cart = [];
         let totalAmount = 0;
 
-        function addToCart(serviceName, price, addButtonId, removeButtonId) {
-            // Hide the Add button and show the Remove button
-            document.getElementById(addButtonId).style.display = 'none';
-            document.getElementById(removeButtonId).style.display = 'inline-block';
-            
+        function addToCart(serviceName, price) {
             // Check if item already exists in cart
             const existingItem = cart.find(item => item.name === serviceName);
             
@@ -789,11 +745,7 @@
             updateCart();
         }
 
-        function removeFromCart(serviceName, addButtonId, removeButtonId) {
-            // Hide the Remove button and show the Add button
-            document.getElementById(addButtonId).style.display = 'inline-block';
-            document.getElementById(removeButtonId).style.display = 'none';
-            
+        function removeFromCart(serviceName) {
             cart = cart.filter(item => item.name !== serviceName);
             updateCart();
         }
@@ -822,6 +774,7 @@
                         </div>
                         <div>
                             <span>$${itemTotal.toFixed(2)}</span>
+                            <button class="btn" style="margin-left: 10px; padding: 5px 10px; font-size: 12px;" onclick="removeFromCart('${item.name}')">Remove</button>
                         </div>
                     `;
                     
@@ -848,90 +801,25 @@
                 return;
             }
             
-            // Show loading indicator
-            document.getElementById('loadingIndicator').style.display = 'block';
+            // In a real application, you would send this data to a server
+            // For this demo, we'll just show the confirmation message
             
-            // Prepare email data
-            const serviceList = cart.map(item => 
-                `${item.name} (${item.quantity} x $${item.price}) = $${(item.quantity * item.price).toFixed(2)}`
-            ).join('\n');
+            // Show confirmation message
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            confirmationMessage.style.display = 'block';
             
-            const templateParams = {
-                to_name: fullName,
-                to_email: email,
-                phone: phone,
-                service_list: serviceList,
-                total_amount: totalAmount.toFixed(2),
-                from_name: 'FreshClean Laundry Services'
-            };
+            // Reset form and cart
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            cart = [];
+            updateCart();
             
-            // Send email using EmailJS
-            emailjs.send('washerman', 'template_jhc12mq', templateParams)
-                .then(function(response) {
-                    console.log('Email sent successfully!', response.status, response.text);
-                    
-                    // Hide loading indicator
-                    document.getElementById('loadingIndicator').style.display = 'none';
-                    
-                    // Show confirmation message
-                    const confirmationMessage = document.getElementById('confirmationMessage');
-                    confirmationMessage.style.display = 'block';
-                    
-                    // Reset form and cart
-                    document.getElementById('fullName').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('phone').value = '';
-                    
-                    // Reset all buttons to show "Add Items" and hide "Remove Now"
-                    document.querySelectorAll('[id$="Add"]').forEach(button => {
-                        button.style.display = 'inline-block';
-                    });
-                    document.querySelectorAll('[id$="Remove"]').forEach(button => {
-                        button.style.display = 'none';
-                    });
-                    
-                    cart = [];
-                    updateCart();
-                    
-                    // Scroll to confirmation message
-                    confirmationMessage.scrollIntoView({ behavior: 'smooth' });
-                }, function(error) {
-                    console.log('Failed to send email:', error);
-                    
-                    // Hide loading indicator
-                    document.getElementById('loadingIndicator').style.display = 'none';
-                    
-                    // Show error message
-                    alert('Sorry, there was an error sending your confirmation email. Please try again later.');
-                });
-        }
-
-        function subscribeNewsletter() {
-            const name = document.getElementById('newsletterName').value;
-            const email = document.getElementById('newsletterEmail').value;
+            // Scroll to confirmation message
+            confirmationMessage.scrollIntoView({ behavior: 'smooth' });
             
-            if (!name || !email) {
-                alert('Please enter both your name and email to subscribe.');
-                return;
-            }
-            
-            const templateParams = {
-                to_name: name,
-                to_email: email,
-                from_name: 'FreshClean Laundry Services',
-                message: 'Thank you for subscribing to our newsletter! You will receive updates on our latest offers and services.'
-            };
-            
-            emailjs.send('washerman', 'template_jhc12mq', templateParams)
-                .then(function(response) {
-                    console.log('Newsletter subscription email sent!', response.status, response.text);
-                    alert('Thank you for subscribing to our newsletter!');
-                    document.getElementById('newsletterName').value = '';
-                    document.getElementById('newsletterEmail').value = '';
-                }, function(error) {
-                    console.log('Failed to send newsletter email:', error);
-                    alert('Sorry, there was an error processing your subscription. Please try again later.');
-                });
+            // Simulate email sending
+            console.log(`Sending confirmation email to ${email} for booking by ${fullName}`);
         }
     </script>
 </body>
